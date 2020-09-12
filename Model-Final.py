@@ -14,7 +14,7 @@ from keras.layers import Conv2D, MaxPool2D, Dense, Flatten, Dropout
 data = []
 labels = []
 classes = 43
-cur_path = r'E:\DND\Final Project\Images/' #os.getcwd()
+cur_path = os.getcwd()
 #print(cur_path)
 
 
