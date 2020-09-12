@@ -29,7 +29,6 @@ for i in range(classes):
             image = Image.open(path + '\\'+ a)
             image = image.resize((30,30))
             image = np.array(image)
-            #sim = Image.fromarray(image)
             data.append(image)
             labels.append(i)
         except:
