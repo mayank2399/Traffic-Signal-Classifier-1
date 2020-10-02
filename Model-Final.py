@@ -5,6 +5,7 @@ import cv2
 import tensorflow as tf
 from PIL import Image
 import os
+import csv
 from sklearn.model_selection import train_test_split
 from keras.utils import to_categorical
 from keras.models import Sequential, load_model
@@ -51,6 +52,20 @@ X_train, X_test, y_train, y_test = train_test_split(data, labels, test_size=0.2,
 print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 
 
+labels_dict = None
+with open('signnames.csv', mode='r') as infile:
+    reader = csv.reader(infile)
+    next(reader, None)
+    labels_dict = {int(rows[0]):rows[1] for rows in reader}
+    
+    
+y_train_df = pd.DataFrame()
+y_train_df['label'] = y_train
+ax = y_train_df['label'].value_counts().plot(kind='barh', figsize = (10,10), title='Number of Samples per Class')
+ax.set_yticklabels(list(map(lambda x: labels_dict[x], y_train_df['label'].value_counts().index.tolist())))            
+for i, v in enumerate(y_train_df['label'].value_counts()):
+    ax.text(v + 10, i - 0.25, str(v), color='black')
+    
 
 
 
